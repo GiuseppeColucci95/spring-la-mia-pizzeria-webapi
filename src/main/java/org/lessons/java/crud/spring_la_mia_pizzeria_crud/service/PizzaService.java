@@ -33,6 +33,10 @@ public class PizzaService {
     return pizzaRepository.findById(id).get();
   }
 
+  public Optional<Pizza> findById(Integer id) {
+    return pizzaRepository.findById(id);
+  }
+
   public List<Pizza> findByName(String name) {
 
     return pizzaRepository.findByNameContainingIgnoreCase(name);

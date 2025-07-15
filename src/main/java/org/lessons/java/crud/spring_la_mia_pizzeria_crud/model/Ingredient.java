@@ -2,6 +2,8 @@ package org.lessons.java.crud.spring_la_mia_pizzeria_crud.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,7 @@ public class Ingredient {
 
   // ! MANY TO MANY RELATIONS
   @ManyToMany(mappedBy = "ingredients")
+  @JsonBackReference
   private List<Pizza> pizzas;
 
   // ! GETTERS AND SETTERS
