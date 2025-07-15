@@ -1,0 +1,31 @@
+<!doctype html>
+<html xmlns:th='http://www.thymeleaf.org'>
+
+<head>
+  <title>Document</title>
+  <th:block th:insert="~{fragments/fragments :: bootstrap}"></th:block>
+  <!-- BOOTSTRAP STYLE -->
+</head>
+
+<body>
+
+  <th:block th:replace="~{fragments/fragments :: header}"></th:block>
+  <!-- HEADER -->
+
+  <div class="container text-center mt-5">
+
+    <h1>WELCOME TO OUR PIZZERIA</h1>
+    <img th:src="@{/public/img/pizza-patatine.jpg}" alt="logo image" class="py-3">
+    <h2>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit nemo odio eaque adipisci veniam. Magnam sunt
+      labore, recusandae tempora doloribus, culpa aspernatur blanditiis facere ut deserunt et eveniet nesciunt
+      molestiae!</h2>
+
+  </div>
+  <!-- JUMBOTRON -->
+
+  <th:block th:replace="~{fragments/fragments :: bootstrapJs}"></th:block>
+  <!-- BOOTSTRAP SCRIPT -->
+
+</body>
+
+</html>

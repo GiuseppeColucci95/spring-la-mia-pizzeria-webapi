@@ -1,0 +1,32 @@
+<!doctype html>
+<html xmlns:th='http://www.thymeleaf.org'>
+
+<head>
+  <title>Document</title>
+  <th:block th:insert="~{fragments/fragments :: bootstrap}"></th:block>
+  <!-- BOOTSTRAP STYLE -->
+</head>
+
+<body>
+
+  <th:block th:replace="~{fragments/fragments :: header}"></th:block>
+  <!-- HEADER -->
+
+  <th:block th:replace="~{fragments/fragments :: searchBar}"></th:block>
+  <!-- SEARCH BAR -->
+
+  <h1 class="text-center p-2 mt-4">PIZZAS LIST</h1>
+
+  <div class="container d-flex justify-content-end">
+    <a th:href="@{pizzas/create}" class="btn btn-warning">Create new pizza</a>
+  </div>
+
+  <th:block th:insert="~{fragments/fragments :: pizzasList}"></th:block>
+  <!-- PIZZAS LIST -->
+
+  <th:block th:replace="~{fragments/fragments :: bootstrapJs}"></th:block>
+  <!-- BOOTSTRAP SCRIPT -->
+
+</body>
+
+</html>

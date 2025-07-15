@@ -1,0 +1,66 @@
+<!doctype html>
+<html xmlns:th='http://www.thymeleaf.org'>
+
+<head>
+  <title>Document</title>
+  <th:block th:insert="~{fragments/fragments :: bootstrap}"></th:block>
+  <!-- BOOTSTRAP STYLE -->
+</head>
+
+<body>
+
+  <th:block th:replace="~{fragments/fragments :: header}"></th:block>
+  <!-- HEADER -->
+
+  <h1 class="text-center p-2 mt-4">INGREDIENTS LIST</h1>
+  <div class="container d-flex justify-content-end">
+    <a th:href="@{ingredients/create}" class="btn btn-warning">Insert new ingredient</a>
+  </div>
+  <!-- TITLE AND CREATE BUTTON -->
+
+  <section id="ingredients-list">
+    <div class="container">
+
+      <table class="table" th:if="${ingredients.size()>0}">
+        <thead>
+          <tr>
+            <th class="w-25">ID</th>
+            <th class="w-50">Name</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="ingredient : ${ingredients}" th:object="${ingredient}">
+            <td>[[*{id}]]</td>
+            <td>[[*{name}]]</td>
+            <td>
+              <a th:href="@{|/ingredients/${ingredient.id}|}" class="btn btn-sm btn-primary">Show</a>
+            </td>
+            <td>
+              <a th:href="@{|/ingredients/${ingredient.id}/edit|}" class="btn btn-sm btn-warning">Edit</a>
+            </td>
+            <td>
+              <form th:action="@{|/ingredients/delete/${ingredient.id}|}" method="post">
+                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+              </form>
+              <!-- <a th:href="@{|/ingredients/delete/${ingredient.id}|}" class="btn btn-sm btn-danger">Delete</a> -->
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+
+      <h1 class="text-center mt-5" th:unless="${ingredients.size()>0}">No ingredients found! 😢</h1>
+
+    </div>
+  </section>
+  <!-- INGREDIENTS LIST -->
+
+  <th:block th:replace="~{fragments/fragments :: bootstrapJs}"></th:block>
+  <!-- BOOTSTRAP SCRIPT -->
+
+</body>
+
+</html>

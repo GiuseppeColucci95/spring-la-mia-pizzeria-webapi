@@ -1,0 +1,123 @@
+<!doctype html>
+<html xmlns:th='http://www.thymeleaf.org'>
+
+<head>
+  <th:block th:fragment="bootstrap">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.7/css/bootstrap.min.css}">
+  </th:block>
+  <!-- BOOTSTRAP -->
+</head>
+
+<body>
+
+  <header th:fragment="header">
+    <nav class="navbar navbar-expand-sm navbar-light bg-warning">
+      <div class="container">
+        <a class="navbar-brand" href="#">🍕</a>
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+          <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/}" aria-current="page">Home
+                <span class="visually-hidden">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/pizzas}">Pizzas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/ingredients}">Ingredients</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- HEADER -->
+
+  <section th:fragment="pizzasList">
+    <div class="container">
+
+      <ul th:if="${pizzas.size()>0}" class="list-unstyled pt-3 row row-gap-3">
+        <li th:each="pizza : ${pizzas}" th:object="${pizza}" class="col col-xs-12 col-sm-6 col-lg-4">
+          <div class="card h-100 rounded-2">
+            <img th:src="*{imageUrl}" alt="image" class="h-50 rounded-top-2 object-fit-cover">
+            <div class="h-25">
+              <h2 class="px-3 pt-2">[[*{name}]]</h2>
+              <h4 class="px-3 h-100">Description: [[*{description}]]</h4>
+              <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
+                <div>
+                  <h5 class="m-0">Price: [[*{price}]]€</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                  <a th:href="@{/pizzas/{id}/discount(id=*{id})}" class="btn m-0 p-0">💰</a>
+                  <a class="btn m-0 p-0" th:href="@{/pizzas/{id}(id=*{id})}">ℹ️</a>
+                  <a class="text-decoration-none btn m-0 p-0" th:href="@{/pizzas/edit/{id}(id=*{id})}">✏</a>
+                  <!-- <form th:action="@{/pizzas/delete/{id}(id=*{id})}" method="post">
+                    <button class="btn m-0 p-0" type="submit">🗑️</button>
+                  </form> -->
+
+                  <button type="button" class="btn p-0 m-0" data-bs-toggle="modal"
+                    th:data-bs-target="'#delete-modal-' + ${pizza.id}">
+                    🗑️
+                  </button>
+
+                  <div class="modal fade" th:id="'delete-modal-' + ${pizza.id}" tabindex="-1"
+                    aria-labelledby="delete-modal" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">
+                            Deleting pizza
+                          </h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Are you sure to delete pizza "[[*{name}]]"?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <form th:action="@{pizzas/delete/{id}(id=*{id})}" class="d-inline-block" method="post">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- modal -->
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <h1 th:unless="${pizzas.size()>0}" class="text-center">No pizzas found!🍕💔</h1>
+    </div>
+  </section>
+  <!-- PIZZAS LIST -->
+
+  <div th:fragment="searchBar" class="container w-50 text-center mt-3">
+    <form th:action="@{/pizzas/search}" class="d-flex ">
+      <input th:value="${name}" name="name" class="form-control" type="text"
+        placeholder="Search your pizza by title or description..." />
+      <button class="btn btn-outline-warning" type="submit">
+        Search
+      </button>
+    </form>
+  </div>
+  <!-- PIZZA SEARCH BAR -->
+
+  <th:block th:fragment="bootstrapJs">
+    <script th:src="@{/webjars/bootstrap/5.3.7/js/bootstrap.bundle.min.js}"></script>
+  </th:block>
+  <!-- BOOTSTRAP SCRIPT -->
+
+</body>
+
+</html>

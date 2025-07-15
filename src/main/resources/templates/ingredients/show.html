@@ -1,0 +1,30 @@
+<!doctype html>
+<html xmlns:th='http://www.thymeleaf.org'>
+
+<head>
+  <title>Document</title>
+  <th:block th:insert="~{fragments/fragments :: bootstrap}"></th:block>
+  <!-- BOOTSTRAP STYLE -->
+</head>
+
+<body>
+
+  <th:block th:replace="~{fragments/fragments :: header}"></th:block>
+  <!-- HEADER -->
+
+  <div class="container text-center my-5" th:object="${ingredient}">
+
+    <h1>[[*{name}]] details</h1>
+
+    <h2 class="mt-5">Ingredient ID: [[*{id}]]</h2>
+    <h2>Ingredient name: [[*{name}]]</h2>
+
+  </div>
+  <!-- INGREDIENT DETAILS -->
+
+  <th:block th:insert="~{fragments/fragments :: bootstrapJs}"></th:block>
+  <!-- BOOTSTRAP SCRIPT -->
+
+</body>
+
+</html>

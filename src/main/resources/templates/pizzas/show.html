@@ -1,0 +1,65 @@
+<!doctype html>
+<html xmlns:th='http://www.thymeleaf.org'>
+
+<head>
+  <title>Document</title>
+  <th:block th:insert="~{fragments/fragments :: bootstrap}"></th:block>
+  <!-- BOOTSTRAP STYLE -->
+</head>
+
+<body>
+
+  <th:block th:replace="~{fragments/fragments :: header}"></th:block>
+  <!-- HEADER -->
+
+  <div class="container text-center my-5" th:object="${pizza}">
+
+    <h1>[[*{name}]] details</h1>
+    <img th:src="*{imageUrl}" alt="pizza details image" class="w-75 rounded-5 my-3">
+    <h3>[[*{description}]]</h3>
+
+    <section id="offers" class="w-75 mt-5 mx-auto">
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="m-0 p-0">OFFERS ON THIS PIZZA</h2>
+        <a th:href="@{/pizzas/{id}/discount(id=*{id})}" class="btn btn-warning">New offer</a>
+      </div>
+      <!-- title and button -->
+
+      <ul class="list-unstyled">
+        <li th:each="offer : *{specialOffers}" th:object="${offer}">
+          <div class="card d-flex flex-row justify-content-between align-items-center">
+            <div class="text-start m-2">
+              <h4>Name: [[*{title}]]</h4>
+              <h5>Start Date: [[*{startDate}]]</h5>
+              <h5 th:unless="${offer.endDate==null}">End Date: [[*{endDate}]]</h5>
+              <h5 th:if="${offer.endDate==null}">End Date: Not Ended Yet</h5>
+            </div>
+            <div class="me-2">
+              <a th:href="@{/discounts/{id}/edit(id=*{id})}" class="btn btn-warning">Edit</a>
+              <a th:href="@{/pizzas/{id}/discount(id=*{id})}" class="btn btn-danger">Delete</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <!-- offers list -->
+
+      <h2 class="mt-5">Ingredients in this pizza</h2>
+      <ul class="list-unstyled">
+        <li th:each="ingredient : *{ingredients}" th:text="${ingredient.name}">
+        </li>
+      </ul>
+      <!-- ingredients list -->
+
+    </section>
+    <!-- offers section -->
+
+  </div>
+  <!-- PIZZA DETAILS -->
+
+  <th:block th:insert="~{fragments/fragments :: bootstrapJs}"></th:block>
+  <!-- BOOTSTRAP SCRIPT -->
+
+</body>
+
+</html>
